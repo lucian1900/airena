@@ -20,6 +20,10 @@ class Grid(object):
         return True
 
     def __getitem__(self, key):
+        '''Supports rubber-band style subgrids when used with slices.
+
+        Otherwise, just returns the entity at the coords 'key'.'''
+
         if isinstance(slice, key):
             x1, y1 = slice.start
             x2, y2 = slice.stop
@@ -34,9 +38,11 @@ class Grid(object):
         else:
             return self.entities[key]
 
-    def subgrid(self, around, width=5, height=5):
-        pin_x, pin_y = around
-        subgrid = Grid(2 * width + 1, 2 * height + 1, zero=(pin_x, pin_y))
+    def subgrid(self, pin, width=5, height=5):
+        'Subgrid around a point.'
+
+        pin_x, pin_y = pin
+        subgrid = Grid(2 * width + 1, 2 * height + 1, zero=pin)
 
         for x in range(pin_x - 5, pin_y - 5):
             for y in range(pin_x + 5, pin_y + 5):
