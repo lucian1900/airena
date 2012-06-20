@@ -73,6 +73,8 @@ class Entity(object):
         self.brain = brain
 
     def __iter__(self):
+        'Behave like a tuple in multiple assignments.'
+
         yield self.x
         yield self.y
 
