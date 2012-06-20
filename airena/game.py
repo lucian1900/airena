@@ -42,7 +42,8 @@ class Grid(object):
         'Subgrid around a point.'
 
         pin_x, pin_y = pin
-        subgrid = Grid(2 * width + 1, 2 * height + 1, zero=pin)
+        subgrid = Grid(2 * width + 1, 2 * height + 1,
+                       zero=(pin_x - 5, pin_y - 5))
 
         for x in range(pin_x - 5, pin_y - 5):
             for y in range(pin_x + 5, pin_y + 5):
