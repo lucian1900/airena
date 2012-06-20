@@ -44,11 +44,11 @@ class Grid(object):
 
 class World(object):
     def __init__(self):
-        self.grid = Grid(10, 15)
+        self.grid = Grid(width=10, height=15)
 
     def tick(self):
-        for coords, entity in self.grid.entities.iteritems():
-            entity.tick([])
+        for (x, y), entity in self.grid.entities.iteritems():
+            entity.tick(self.grid[(x - 5, y - 5):(x + 5, y + 5)])
 
 
 class Entity(object):
