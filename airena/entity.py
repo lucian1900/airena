@@ -34,6 +34,14 @@ class Grid(object):
         else:
             return self.entities[key]
 
+    def subgrid(self, around, width=5, height=5):
+        pin_x, pin_y = around
+        subgrid = Grid(2 * width + 1, 2 * height + 1, zero=(pin_x, pin_y))
+
+        for x in range(pin_x - 5, pin_y - 5):
+            for y in range(pin_x + 5, pin_y + 5):
+                subgrid.add(self[x, y])
+
     def add(self, entity):
         if self.check(entity):
             self.entities[tuple(entity)] = entity
@@ -48,7 +56,7 @@ class World(object):
 
     def tick(self):
         for (x, y), entity in self.grid.entities.iteritems():
-            entity.tick(self.grid[(x - 5, y - 5):(x + 5, y + 5)])
+            entity.tick(self.grid.subgrid(around=entity))
 
 
 class Entity(object):
