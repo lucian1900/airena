@@ -1,14 +1,17 @@
 class Grid(object):
-    def __init__(self, width, height):
+    def __init__(self, width, height, zero=(0, 0)):
         self.width = width
         self.height = height
+        self.zero_x, self.zero_y = zero
 
         self.entities = {}
 
     def check(self, coords):
         x, y = coords
 
-        if not (0 <= x < self.width and 0 <= y < self.height):
+        if not (self.zero_x <= x < self.width and \
+                self.zero_y <= y < self.height):
+
             return False
 
         if (x, y) in self.entities:
@@ -21,12 +24,17 @@ class Grid(object):
             x1, y1 = slice.start
             x2, y2 = slice.stop
 
-            subgrid = Grid(width=1, height=2)
+            subgrid = Grid(width=x2 - x1, height=y2 - y1, zero=(x1, y1))
+
+            for x in range(x1, x2):
+                for y in range(y1, y2):
+                    subgrid.add(self[x, y])
+
             return subgrid
         else:
             return self.entities[key]
 
-    def register(self, entity):
+    def add(self, entity):
         if self.check(entity):
             self.entities[tuple(entity)] = entity
             return True
