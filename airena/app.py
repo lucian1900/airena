@@ -1,14 +1,16 @@
 
 from airena.scene import SceneManager
-from airena.displays import load_display
+from airena.display import DisplayManager
 
 class Application(object):
 
-    def __init__(self):
+    def __init__(self, args):
+        self.args = args
         self.scene_manager = SceneManager(self)
 
     def _initialize_display(self, display_name='PygameDisplay'):
-        display_class = load_display(display_name)
+        dm = DisplayManager()
+        display_class = dm.classes[display_name]
         self.display = display_class()
 
     def start(self):

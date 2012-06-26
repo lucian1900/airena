@@ -1,6 +1,6 @@
 import pygame
 
-from airena.displays import BaseDisplay
+from airena.display import BaseDisplay
 
 class PygameDisplay(BaseDisplay):
     def __init__(self, width=640, height=480, 
@@ -31,4 +31,3 @@ class PygameDisplay(BaseDisplay):
             self.screen = pygame.display.set_mode(dimensions, self._flags)
         else:
             self.screen = pygame.display.set_mode(dimensions)
-

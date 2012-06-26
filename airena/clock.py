@@ -1,3 +1,4 @@
+from airena.utils import load
 
 class BaseClock(object):
     def __init__(self):
@@ -7,6 +8,4 @@ class BaseClock(object):
         pass
 
 def load_clock(class_name):
-    clock_classes = load('airena.clocks', subclasses=BaseClock)
-
-    for cls in clock_classes
+    return load('airena.clocks', BaseClock, class_name)
