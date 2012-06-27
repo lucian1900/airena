@@ -1,4 +1,3 @@
-
 PROJECT = 'airena'
 VERSION = '0.1'
 
