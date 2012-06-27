@@ -1,29 +1,18 @@
 from straight.plugin import load as load_plugins
 
-class ClassManager(object):
-    def __init__(self, parent_class, namespaces, autoload=True):
-        self.parent_class = parent_class
-        self.classes = dict()
-
-        if isinstance(namespaces, list):
-            self.namespaces = namespaces
-        else:
-            self.namespaces = [namespaces]
-
-        if autoload:
-            self.load()
-
-
-    def load(self):
-        for namespace in self.namespaces:
-            self.load_namespace(namespace)
-
-    def load_namespace(self, namespace):
+def load_plugin(parent_class, namespace, fallback=False):
         classes = load_plugins(namespace, 
-                               subclasses=self.parent_class, 
+                               subclasses=parent_class, 
                                recurse=True)
-        
-        for cls in classes:
-            self.classes[cls.__name__] = cls
+        if len(classes):
+            return classes[0]
+        elif fallback and '.' in namespace:
+            namespace = '.'.join(namespace.split('.')[:-1])
+            classes = load_plugins(namespace,
+                                   subclasses=parent_class,
+                                   recurse=True)
+            if len(classes):
+                return classes[0]
+
 
 

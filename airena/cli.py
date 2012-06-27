@@ -1,6 +1,6 @@
 import os, sys, imp, argparse, logging
 
-from airena.app import Application
+from airena.app import Application, ApplicationError
 
 class ArgumentError(Exception): pass
     
@@ -18,6 +18,7 @@ class SimconfAction(argparse.Action):
 
         file, filename, description = imp.find_module(modulename)
         module = imp.load_module(modulename, file, filename, description)
+        namespace.conf_module = module
         
         sys.path.remove(dirname)
 
@@ -33,8 +34,11 @@ def get_args():
 def main():
     args = get_args()
     if args is not None:
-        app = Application(args)
-    app.start()
+        try:
+            app = Application(args)
+            app.start()
+        except ApplicationError, e:
+            print "airena: application error: %s" % e.message
 
 if __name__ == '__main__':
     sys.exit(main())

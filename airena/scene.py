@@ -1,7 +1,7 @@
+import pygame
 
 class Scene(object):
-    def __init__(self, app, manager, *args, **kwargs):
-        self._app = app
+    def __init__(self, manager, *args, **kwargs):
         self._manager = manager
 
     def on_enter(self, old_scene, *args, **kwargs):
@@ -19,16 +19,20 @@ class Scene(object):
     def update(self, dt, t, *args, **kwargs):
         pass
 
-    def handle_event(self, events, *args, **kwargs):
+    def handle_events(self, events, *args, **kwargs):
         for event in events:
-            if KEYDOWN == event.type:
-                if K_ESCAPE == event.key:
-                    self._manager.exit_scene()
+            if pygame.KEYDOWN == event.type:
+                if pygame.K_ESCAPE == event.key:
+                    self._manager.pop_scene()
+
+class SimulationScene(Scene):
+    def __init__(self, app, manager, *args, **kwargs):
+        super(SimulationScene, self).__init__(manager, *args, **kwargs)
+        self._app = app
                     
 
 class SceneManager(object):
-    def __init__(self, app, first=None):
-        self._app = app
+    def __init__(self, first=None):
         self._scenes = []
         if first:
             self.push_scene(first)
@@ -61,7 +65,12 @@ class SceneManager(object):
         self._scenes.append(new_scene)
         
 
-    
+# class AppSceneManager(SceneManager):
+#     def __init__(self, app, first=None):
+#         self.app = app
+#         super(AppSceneManager, self).__init__(first=first)
+
+
 
     
     
