@@ -31,7 +31,7 @@ class SimulationScene(Scene):
         self._sim = sim
 
     def update(self, dt, t, *args, **kwargs):
-        sef._sim.update(dt, t)
+        self._sim.update(dt, t)
 
     def handle_events(self, events, *args, **kwargs):
         for event in events:
