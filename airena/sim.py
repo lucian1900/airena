@@ -5,5 +5,13 @@ class BaseSimulation(object):
         pass
 
 
+    def update(self, dt, t):
+        pass
+
+
+    def handle_events(self, events):
+        pass
+
+
 
 
