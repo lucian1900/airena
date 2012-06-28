@@ -57,3 +57,4 @@ class Application(object):
             events = get_events()
             current_scene.handle_events(events)
             current_scene = sm.get_current()
+            flip()

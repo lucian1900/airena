@@ -23,12 +23,22 @@ class Scene(object):
         for event in events:
             if pygame.KEYDOWN == event.type:
                 if pygame.K_ESCAPE == event.key:
-                    self._manager.pop_scene()
+                    return self._manager.pop_scene()
 
 class SimulationScene(Scene):
-    def __init__(self, app, manager, *args, **kwargs):
+    def __init__(self, sim, manager, *args, **kwargs):
         super(SimulationScene, self).__init__(manager, *args, **kwargs)
-        self._app = app
+        self._sim = sim
+
+    def update(self, dt, t, *args, **kwargs):
+        sef._sim.update(dt, t)
+
+    def handle_events(self, events, *args, **kwargs):
+        for event in events:
+            if pygame.KEYDOWN == event.type:
+                if pygame.K_ESCAPE == event.key:
+                    return self._manager.pop_scene()
+            self._sim.handle_events(events, *args, **kwargs)
                     
 
 class SceneManager(object):
