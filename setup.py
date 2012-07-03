@@ -40,13 +40,13 @@ setup(
     #     '': ['data/settings.py'],
     # },
 
+    package_data = {
+        '': ['data/*']
+    },
+
     entry_points={
         'console_scripts': [
             'airena = airena.cli:main'
-            ],
-        'improv.commands': [
-            'init = improv.commands.init:Init',
-            'apply = improv.commands.apply:Apply',
             ],
         },
 

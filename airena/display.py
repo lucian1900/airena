@@ -1,5 +1,8 @@
 import pygame
 
+class PygameDrawable(pygame.sprite.DirtySprite):
+    dirty = 2
+
 class PygameDisplay(object):
     def __init__(self, width=640, height=480, 
                  flags=None, 
