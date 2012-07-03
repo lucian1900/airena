@@ -112,8 +112,8 @@ class Tilesheet(object):
             self._image = pygame.image.load(filename)
             self._filename = filename
 
-        self._first_gid = int(first_gid)
-        self._last_gid = int(first_gid)
+        self._first_gid = first_gid
+        self._last_gid = first_gid
 
         self._filename = filename
         self._transkey = transkey
@@ -121,8 +121,8 @@ class Tilesheet(object):
         self._width = 0
         self._height =0
 
-        self._tile_width = int(tile_width)
-        self._tile_height = int(tile_height)
+        self._tile_width = tile_width
+        self._tile_height = tile_height
 
         self._spacing = 0
         self._margin = 0
@@ -183,7 +183,7 @@ class Tilesheet(object):
 
     @tile_width.setter
     def tile_width(self, val):
-        self._tile_width = int(val)
+        self._tile_width = val
         self._calculate_max_column() # recalculate sheet width
 
     # the pixel height of tiles
@@ -193,7 +193,7 @@ class Tilesheet(object):
 
     @tile_height.setter
     def tile_height(self, val):
-        self._tile_height = int(val)
+        self._tile_height = val
         self._calculate_max_column() # recalculate sheet height
 
     # the dimensions of the sheet, in tiles
@@ -214,30 +214,14 @@ class Tilesheet(object):
     def spacing(self):
         return self._spacing
 
-    @spacing.setter
-    def spacing(self, val):
-        self._spacing = int(val)
-        self._calculate_max_column() # recalculate sheet width
-        self._calculate_max_row() # recalculate sheet width
-
     @property
     def margin(self):
         return self._margin
 
-    @margin.setter
-    def margin(self, val):
-        self._margin = int(val)
-        self._calculate_max_column() # recalculate sheet width
-        self._calculate_max_row() # recalculate sheet width
-    
     # the transparency color for the sheet
     @property
     def transkey(self):
         return self._transkey
-
-    @transkey.setter
-    def transkey(self, val):
-        self._transkey = val
 
     # return a new subtile from the sheet
     def cut_by_coord(self, x, y):
@@ -281,12 +265,14 @@ class Tileset(object):
     spacing : int - distance, in pixels, between tiles
     margin : int - distance, in pixels, around tilesheets
     """
-    def __init__(self, first_gid, tile_width=32, tile_height=32, spacing=0, margin=0):
-        self._first_gid = int(first_gid)
-        self._tile_width = int(tile_width)
-        self._tile_height = int(tile_height)
-        self._spacing = int(spacing)
-        self._margin = int(margin)
+    def __init__(self, first_gid, 
+                 tile_width=32, tile_height=32, 
+                 spacing=0, margin=0):
+        self._first_gid = first_gid
+        self._tile_width = tile_width
+        self._tile_height = tile_height
+        self._spacing = spacing
+        self._margin = margin
         self._sheets = []
         self._tiles = []
 
@@ -312,7 +298,7 @@ class Tileset(object):
 
     @tile_width.setter
     def tile_width(self, value):
-        self._tile_width = int(value)
+        self._tile_width = value
         self._update_sheet_width()
 
     @property
@@ -321,24 +307,16 @@ class Tileset(object):
 
     @tile_height.setter
     def tile_height(self, value):
-        self._tile_height = int(value)
+        self._tile_height = value
         self._update_sheet_height()
 
     @property
     def spacing(self):
         return self._spacing
 
-    @spacing.setter
-    def spacing(self, val):
-        self._spacing = int(val)
-    
     @property
     def margin(self):
         return self._margin
-
-    @margin.setter
-    def margin(self, val):
-        self._margin = int(val)
 
     def add_tilesheet(self, tilesheet):
         print "adding tilesheet", tilesheet.filename
@@ -357,9 +335,6 @@ class Tileset(object):
                     pudb.set_trace()
                     return sheet.get_gid(gid)
 
-
-    
-    
 class Tile(Sprite):
     """
     A single map tile.

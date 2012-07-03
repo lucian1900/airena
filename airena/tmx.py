@@ -89,11 +89,11 @@ def build_tilesets(tileset_node, base_path, first_gid):
     if source:
         return parse_tsx(source)
     else:
-        firstgid = attributes.get('firstgid')
-        tile_width = attributes.get('tilewidth')
-        tile_height = attributes.get('tileheight')
-        spacing = attributes.get('spacing')
-        margin = attributes.get('margin')
+        firstgid = int(attributes.get('firstgid'))
+        tile_width = int(attributes.get('tilewidth'))
+        tile_height = int(attributes.get('tileheight'))
+        spacing = int(attributes.get('spacing', 0))
+        margin = int(attributes.get('margin', 0))
 
         tileset = Tileset(firstgid, tile_width, tile_height,
                           spacing or 0, margin or 0)
